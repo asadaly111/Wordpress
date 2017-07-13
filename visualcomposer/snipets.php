@@ -1,4 +1,4 @@
-//when visual not let you edit your page then replace this function to existing one
+//when visual composer not let you edit your page then replace this function to existing one
 
 html2element: function(html) {
         var $template, attributes = {},
