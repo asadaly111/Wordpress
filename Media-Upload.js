@@ -34,3 +34,6 @@ inputField.val(attachment.url);
 // Finally, open the modal on click
 frame.open();
 });
+
+//refrence link
+//https://codex.wordpress.org/Javascript_Reference/wp.media
