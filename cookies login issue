@@ -1,7 +1,17 @@
-1. Access your Functions.php file (use an FTP tool such as Filezilla or CyberDuck, or go through the file manager in your hosting cPanel)
+Try both functions - hope one will work
 
+Example 1
+
+1. Access your Functions.php file (use an FTP tool such as Filezilla or CyberDuck, or go through the file manager in your hosting cPanel)
 2. Add the following code to the bottom of the functions.php file:
 setcookie(TEST_COOKIE, 'WP Cookie check', 0, COOKIEPATH, COOKIE_DOMAIN);
 if ( SITECOOKIEPATH != COOKIEPATH ) setcookie(TEST_COOKIE, 'WP Cookie check', 0, SITECOOKIEPATH, COOKIE_DOMAIN);
-
 3. Upload/Save your Functions.php file
+
+
+Example 2 
+
+define('ADMIN_COOKIE_PATH', '/');
+define('COOKIE_DOMAIN', '');
+define('COOKIEPATH', '');
+define('SITECOOKIEPATH', ''); 
