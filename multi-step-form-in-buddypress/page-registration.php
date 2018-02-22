@@ -267,4 +267,11 @@ select{margin-bottom: 10px}
                                     }
                                 });
                             });
+                            
+                            //for username creating
+                            jQuery('#org-name').on('focusout', function() {
+                                var value = jQuery(this).val().toLowerCase().replace(/-+/g, '').replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+                                jQuery('#seller-shop').val(value);
+                            });
+
                         </script>
