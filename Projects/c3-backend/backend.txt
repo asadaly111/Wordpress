@@ -1,0 +1,31 @@
+
+Career; 
+
+
+Career (Truck Driver) A/c Registration 
+Career login
+Career can find load 
+Career view details of the load
+Career can talk to admin related to the load
+
+
+
+
+
+User;
+Registration
+Login
+User can post load
+User can talk to admin
+
+
+
+
+
+
+
+
+wp_messages
+
+id
+user_id

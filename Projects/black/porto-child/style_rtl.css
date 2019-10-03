@@ -1,0 +1,8 @@
+@import url("../porto/style_rtl.css");
+
+
+img.iner-pages {
+    height: 450px;
+    width: 100% !important;
+    background-size: cover !important;
+}

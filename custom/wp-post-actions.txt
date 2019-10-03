@@ -1,0 +1,26 @@
+// Delete Notes When deleted notes By admin
+add_action( 'admin_init', 'cms_codex_init' );
+function cms_codex_init() {
+	add_action( 'delete_post', 'cms_codex_sync', 10 );
+}
+function cms_codex_sync( $pid ) {
+	global $wpdb, $post_type;
+	if ( $post_type == 'cms_notes' ){
+		$wpdb->delete($wpdb->prefix.'usermeta', array('meta_key' => 'cms_student_notes_by_student' ,'meta_value' => $pid ) );
+	} 
+}
+
+//when update the post 
+function pro_custom_fields_save( $post_id ) {
+	if ( isset( $_POST['metagarage'] ) ){
+		foreach ($_POST['metagarage'] as $key => $value) {
+			if (!empty($value['isyes'])) {
+				$dataexterioor[$key] = $value;
+			}
+		}
+		update_post_meta( $post_id, 'metagarage', $dataexterioor);
+	}
+}
+add_action( 'save_post', 'pro_custom_fields_save' );
+
+

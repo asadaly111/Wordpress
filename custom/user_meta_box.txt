@@ -1,0 +1,46 @@
+function cms_show_meta_box($user){
+
+global $obj, $wpdb;
+
+$getaall = $obj->getRows($wpdb->prefix.'usermeta' , ['where' =>
+	['user_id' => $user->ID, 'meta_key' => 'cms_course_registration'  ],
+]);
+
+if (in_array('student', $user->roles)) {
+	
+	echo '    
+	<div id="student_courses">
+	<h3>Registered Courses ('.count($getaall).')</h3>
+	<table class="form-table">';
+
+	$i = 1;
+	foreach ($getaall as $key) {
+		echo '
+		<tr>
+		<th>
+		<label>'.$i.'</label>
+		</th>
+		<td>
+		<input type="text" id="birthday" required readonly="" value="'.get_the_title($key->meta_value).'">
+		</td>
+		</tr>
+		';
+		$i++;
+	}
+
+
+		echo '
+		</table>
+		</div>';
+   
+}
+
+
+
+}
+ 
+// add the field to user's own profile editing screen
+add_action(
+    'edit_user_profile',
+    'cms_show_meta_box'
+);

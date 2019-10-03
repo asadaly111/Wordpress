@@ -1,2 +1,1 @@
-# Wordpress
-All snipets and themes
+### Wordpress Code backup ###

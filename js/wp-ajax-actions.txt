@@ -1,0 +1,18 @@
+add_action( 'wp_ajax_ev_checkemail', 'ev_checkemail' );
+add_action( 'wp_ajax_nopriv_ev_checkemail', 'ev_checkemail' );
+function ev_checkemail(){
+	if (email_exists($_POST['userEmail'])) {
+		echo 'false';
+	}else{
+		echo 'true';
+	}
+
+
+$msg = array(
+'msg' 	=> 'logout',
+);
+return $msg = json_encode($msg);
+		
+
+	exit();
+}

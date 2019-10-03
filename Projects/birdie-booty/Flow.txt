@@ -1,0 +1,65 @@
+INSERT INTO `bi_bird_size`(`name`, `dsc`, `subtitle`, `image`) VALUES ('Little Booty', 	'The perfect sized treasure chest and toys for small birds such as Cockatiels, Parakeets, Lovebirds, Small Conures', '$24.95 / Mo.', 118);
+INSERT INTO `bi_bird_size`(`name`, `dsc`, `subtitle`, `image`) VALUES ('Big Booty', 		'This BirdieBooty is perfect for Large Conures, Goffin Cocatoos, African Greys, Amazons, Eclectus, and Mini McCaws', '$34.95/ Mo.', 119);
+INSERT INTO `bi_bird_size`(`name`, `dsc`, `subtitle`, `image`) VALUES ('Giant Booty', 	'Ahoy Matey – this box is filled with booty perfect for large Macaws, Cockatoos, and Amazons ', '$54.95 / Mo.', 120);
+
+
+
+
+
+
+
+INSERT INTO `bi_bird_subscriptions`(`size`, `name`, `dsc`, `extra`, `image`, `price`, `duration`) VALUES 
+(3, '1 Box – no subscription', '$65.95/BirdieBooty Box', '', 121, 65.95, 'One Time'),
+(3, '6 Month Subscription', '$59.95/BirdieBooty Box', '+ Free Extra Toy!', 122, 59.95, '6 Month'),
+(3, '12 Month Subscription', '$54.95/BirdieBooty Box', '+ Free Extra Toy!', 123, 54.95, '12 Month')
+
+
+
+
+
+
+bi_bird_size
+id
+name
+dsc
+subtitle
+image
+status (active/inactive)
+
+bi_bird_subscriptions
+id
+size
+name
+dsc
+image
+price
+duration
+
+
+
+
+bi_bird_booking_subscription
+id 
+user_id
+stripe_cus_id
+first_name
+last_name
+email
+street_address
+phone
+apt
+city
+state
+zip
+country
+size
+subscription
+status (active/expire/failed)
+
+
+bi_bird_payment
+id
+booking_subscription
+stripe_sub_id
+paid
+status

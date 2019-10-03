@@ -1,0 +1,36 @@
+/*   
+
+Theme Name: My Theme
+
+*/
+
+/* Change WC Acct Page Column Widths */
+@media only screen and (min-width:769px) {
+    .woocommerce-account .woocommerce-MyAccount-navigation { width: 22%; }
+    .woocommerce-account .woocommerce-MyAccount-content { width: 75%; }
+}
+
+/* Style WC Account Endpoint Links */
+nav.woocommerce-MyAccount-navigation ul { list-style-type: none; padding-left: 0; max-width: 200px; font-size: 17px; line-height: 26px; }
+nav.woocommerce-MyAccount-navigation ul li { padding: 8px 20px; background-color: rgba(0, 0, 0, 0.05); border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
+nav.woocommerce-MyAccount-navigation ul li.is-active { background-color: rgb(255, 103, 18); }
+nav.woocommerce-MyAccount-navigation ul li.is-active a { color: #fff; cursor: default; }
+nav.woocommerce-MyAccount-navigation ul li.is-active:after { content: ""; height: 0; width: 0; border-top: 20px solid transparent; border-left: 14px solid rgb(255, 103, 18); border-bottom: 20px solid transparent; float: right; margin-right: -34px; margin-top: -7px; }
+nav.woocommerce-MyAccount-navigation ul li:not(.is-active):hover { background-color: rgb(255, 103, 18); }
+nav.woocommerce-MyAccount-navigation ul li:not(.is-active):hover:after { content: ""; height: 0; width: 0; border-top: 20px solid transparent; border-left: 14px solid rgb(255, 103, 18); border-bottom: 20px solid transparent; float: right; margin-right: -34px; margin-top: -7px; }
+nav.woocommerce-MyAccount-navigation ul li:hover a { color: #fff; }
+.woocommerce nav.woocommerce-MyAccount-navigation { float: left; width: 20%; }
+.woocommerce .woocommerce-MyAccount-content { width: 80%; float: left; }
+.woocommerce-MyAccount-navigation a { color: #000; }
+.woocommerce-MyAccount-content p a, .woocommerce-MyAccount-content p a:hover { color: #ff6712; }
+.woocommerce-MyAccount-content .btn-primary { color: #fff; background-color: #ff6712; border-color: #ff6712; transition-duration: .5; }
+.woocommerce-MyAccount-content .btn-primary:hover, .woocommerce-MyAccount-content .btn-primary:focus { color: #fff; background-color: #000; border-color: #000; }
+.woocommerce form .form-row input.input-text, .woocommerce form .form-row textarea { box-sizing: border-box; width: 100%; margin: 0; outline: 0; line-height: normal; height: 40px; }
+.woocommerce form .form-row input.input-text:focus, .woocommerce form .form-row textarea:focus { box-sizing: border-box; width: 100%; margin: 0; outline: 0; line-height: normal; height: 40px; }
+.woocommerce-EditAccountForm input.woocommerce-Button.button { background-color: #ff6712; color: #fff; transition-duration: .5s; }
+.woocommerce-EditAccountForm input.woocommerce-Button.button:hover { background-color: #000; color: #fff; }
+div#post-47 { float: left; width: 100%;    /* position: relative; */ margin: 160px 0 155px; }
+.entry { float: left; width: 100%; margin: 30px 0 60px; }
+.woocommerce-MyAccount-content #validation .contact-inner-box-4 .btn { height: 50px; margin: 0px !important; }
+.woocommerce-MyAccount-content #validation  .contact-inner-2 { padding: 2px 0 !important }
+p.woocommerce-form-row.woocommerce-form-row--last.form-row.form-row-last, p.woocommerce-form-row.woocommerce-form-row--first.form-row.form-row-first { display: none; }

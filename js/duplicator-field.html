@@ -1,0 +1,27 @@
+<div style="clear: both;"></div>
+<style>
+table{margin-top: 30px;width: 100%;}
+table tr th{text-align: left;}
+</style>
+<table class="appendhere">
+	<tr>
+		<th>Item Name</th>
+		<th>Item Downloabale URL</th>
+		<th></th>
+	</tr>
+	<tr>
+		<td><input type="text" name="itemName[]" style="width: 100%"></td>
+		<td><input type="text" name="itemUrl[]" style="width: 100%"></td>
+		<td><button id="adddd">+</button></td>
+	</tr>
+</table>
+<script>
+	jQuery(document).on('click', '#adddd', function(event) {
+		event.preventDefault();
+		jQuery('.appendhere').append('<tr><td><input type="text" name="itemName[]" style="width: 100%"></td><td><input type="text" name="itemUrl[]" style="width: 100%"></td><td><button id="adddd">+</button><button id="delete">-</button></td></tr>');
+	});
+	jQuery(document).on('click', '#delete', function(event) {
+		event.preventDefault();
+		jQuery(this).closest('tr').remove();
+	});
+</script>
