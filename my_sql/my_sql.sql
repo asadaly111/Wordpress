@@ -24,3 +24,13 @@ WHERE a.term_taxonomy_id = 8 AND b.meta_key = "cs_price"
 	FROM yourttable
 	WHERE created >= CURDATE() - INTERVAL 1 YEAR
 	GROUP BY Year(created), Month(created)
+
+
+
+	-- Get sale report by year month 
+	SELECT YEAR(`paymentdate`) as SalesYear,
+MONTH(`paymentdate`) as SalesMonth,
+SUM(`amount`) AS TotalSales
+FROM user_payments
+GROUP BY YEAR(paymentdate), MONTH(paymentdate)
+ORDER BY YEAR(paymentdate), MONTH(paymentdate) 
