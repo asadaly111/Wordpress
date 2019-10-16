@@ -34,3 +34,10 @@ SUM(`amount`) AS TotalSales
 FROM user_payments
 GROUP BY YEAR(paymentdate), MONTH(paymentdate)
 ORDER BY YEAR(paymentdate), MONTH(paymentdate) 
+
+-- By year and month
+SELECT 
+SUM(`amount`) AS TotalSales
+FROM user_payments
+where year(paymentdate) = 2019
+GROUP BY MONTH(paymentdate)
