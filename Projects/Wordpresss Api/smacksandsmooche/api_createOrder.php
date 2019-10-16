@@ -8,8 +8,8 @@ $url =  __DIR__ . '/apis/vendor/autoload.php';require ($url);
 use Automattic\WooCommerce\Client;
 $woocommerce = new Client(
     'https://dev20.onlinetestingserver.com/smacksandsmooche/',
-    'ck_1092fd6b1172771db0058ff3df49f864e986d524',
-    'cs_3f7e1314ea4e1413d29287fd594ed511ec6a1e9f',
+    'ck_************************',
+    'cs_************************',
     [
       'wp_api'  => true,
       'version' => 'wc/v2',
