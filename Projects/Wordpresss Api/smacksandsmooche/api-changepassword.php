@@ -17,21 +17,21 @@ if(isset($postdata["code"]) && isset($postdata ["password"])) {
 
 	if($has_error == FALSE) {
 
-			$mylink = $wpdb->get_row( "SELECT * FROM $wpdb->users WHERE `user_activation_key` = '$code'" );
+		$mylink = $wpdb->get_row( "SELECT * FROM $wpdb->users WHERE `user_activation_key` = '$code'" );
 			//print_r($mylink);
 
-			if(!empty($mylink)){
-				$user_login = $mylink->user_login;
-				
-				$wpdb->update( $wpdb->users, array( 'user_pass' => md5($password), 'user_activation_key' => '' ), array( 'user_login' => $user_login ) ); 
-http_response_code(200); 
-				$response["status"] = 1;
-			    $response["message"] = "Password Changed";	
-			}else {
-http_response_code(404);
-				$response["status"] = 0;
-			    $response["message"] = "Invalid Code";	
-			}
+		if(!empty($mylink)){
+			$user_login = $mylink->user_login;
+			
+			$wpdb->update( $wpdb->users, array( 'user_pass' => md5($password), 'user_activation_key' => '' ), array( 'user_login' => $user_login ) ); 
+			http_response_code(200); 
+			$response["status"] = 1;
+			$response["message"] = "Password Changed";	
+		}else {
+			http_response_code(404);
+			$response["status"] = 0;
+			$response["message"] = "Invalid Code";	
+		}
 
 	}
 
