@@ -31,12 +31,11 @@ define('CHI_PATH', dirname(__FILE__));
 $plugin = plugin_basename(__FILE__);
 define('CHI_URL', plugin_dir_url($plugin));
 
-
 // menu
 require CHI_PATH.'/inc/Class_powerbody.php';
+require CHI_PATH.'/inc/class_woocommerce_order_page.php';
 require CHI_PATH.'/inc/pb_menu.php';
-
-
+require CHI_PATH.'/inc/main_class.php';
 
 
 
@@ -209,3 +208,24 @@ function cs_taxonomy_brands() {
 }
 
 add_action( 'init', 'cs_taxonomy_brands' );
+
+// Styling and scripts
+add_action('booking_script_css', 'booking_script_css_styles');
+function booking_script_css_styles(){
+    echo '<link rel="stylesheet" href="'.CHI_URL.'assets/css/bootstrap.css">';
+}
+
+
+
+function generateRandomString($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+
+
+?>

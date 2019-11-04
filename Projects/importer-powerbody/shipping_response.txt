@@ -1,0 +1,379 @@
+Array
+(
+    [7] => Array
+        (
+            [currency_code] => GBP
+            [shipping_method_id] => 7
+            [shipping_method_name] => Parcel Force International
+            [shipping_method_type_name] => Parcel Force
+            [description] => (3-5 working days)
+            [zone] => Array
+                (
+                    [0] => Array
+                        (
+                            [country_code] => GR
+                            [country_name] => Greece
+                        )
+
+                    [1] => Array
+                        (
+                            [country_code] => NO
+                            [country_name] => Norway
+                        )
+
+                )
+
+            [ranges] => Array
+                (
+                    [weight_range] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [from] => 0.00
+                                    [to] => 20.00
+                                    [price] => 10.00
+                                )
+
+                        )
+
+                )
+
+        )
+
+    [13] => Array
+        (
+            [currency_code] => GBP
+            [shipping_method_id] => 13
+            [shipping_method_name] => Royal Mail - Tracked
+            [shipping_method_type_name] => Royal Mail
+            [description] => (2-3 working days)
+            [zone] => Array
+                (
+                    [0] => Array
+                        (
+                            [country_code] => GB
+                            [country_name] => United Kingdom
+                        )
+
+                )
+
+            [ranges] => Array
+                (
+                    [weight_range] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [from] => 0.00
+                                    [to] => 2.00
+                                    [price] => 3.47
+                                )
+
+                        )
+
+                )
+
+        )
+
+    [20] => Array
+        (
+            [currency_code] => GBP
+            [shipping_method_id] => 20
+            [shipping_method_name] => DPD Next Day
+            [shipping_method_type_name] => DPD
+            [description] =>
+            [zone] => Array
+                (
+                    [0] => Array
+                        (
+                            [country_code] => GB
+                            [country_name] => United Kingdom
+                        )
+
+                )
+
+            [ranges] => Array
+                (
+                    [weight_range] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [from] => 0.00
+                                    [to] => 2.00
+                                    [price] => 5.26
+                                )
+
+                            [1] => Array
+                                (
+                                    [from] => 2.01
+                                    [to] => 30.00
+                                    [price] => 5.76
+                                )
+
+                        )
+
+                )
+
+        )
+
+    [other_countries] => Array
+        (
+            [currency_code] => GBP
+            [shipping_method_id] => 23
+            [shipping_method_name] => DPD International
+            [shipping_method_type_name] =>
+            [prices_for_countries] => Array
+                (
+                    [AT] => Array
+                        (
+                            [country_code] => AT
+                            [country_name] => Austria
+                            [price] => 10
+                        )
+
+                    [BE] => Array
+                        (
+                            [country_code] => BE
+                            [country_name] => Belgium
+                            [price] => 10
+                        )
+
+                    [BG] => Array
+                        (
+                            [country_code] => BG
+                            [country_name] => Bulgaria
+                            [price] => 10
+                        )
+
+                    [CH] => Array
+                        (
+                            [country_code] => CH
+                            [country_name] => Switzerland
+                            [price] => 10
+                        )
+
+                    [CZ] => Array
+                        (
+                            [country_code] => CZ
+                            [country_name] => Czech Republic
+                            [price] => 10
+                        )
+
+                    [DE] => Array
+                        (
+                            [country_code] => DE
+                            [country_name] => Germany
+                            [price] => 10
+                        )
+
+                    [DK] => Array
+                        (
+                            [country_code] => DK
+                            [country_name] => Denmark
+                            [price] => 10
+                        )
+
+                    [EE] => Array
+                        (
+                            [country_code] => EE
+                            [country_name] => Estonia
+                            [price] => 10
+                        )
+
+                    [ES] => Array
+                        (
+                            [country_code] => ES
+                            [country_name] => Spain
+                            [price] => 10
+                        )
+
+                    [FI] => Array
+                        (
+                            [country_code] => FI
+                            [country_name] => Finland
+                            [price] => 10
+                        )
+
+                    [FR] => Array
+                        (
+                            [country_code] => FR
+                            [country_name] => France
+                            [price] => 10
+                        )
+
+                    [GI] => Array
+                        (
+                            [country_code] => GI
+                            [country_name] => Gibraltar
+                            [price] => 10
+                        )
+
+                    [GR] => Array
+                        (
+                            [country_code] => GR
+                            [country_name] => Greece
+                            [price] => 10
+                        )
+
+                    [HU] => Array
+                        (
+                            [country_code] => HU
+                            [country_name] => Hungary
+                            [price] => 10
+                        )
+
+                    [IE] => Array
+                        (
+                            [country_code] => IE
+                            [country_name] => Ireland
+                            [price] => 10
+                        )
+
+                    [IT] => Array
+                        (
+                            [country_code] => IT
+                            [country_name] => Italy
+                            [price] => 10
+                        )
+
+                    [JE] => Array
+                        (
+                            [country_code] => JE
+                            [country_name] => Jersey
+                            [price] => 10
+                        )
+
+                    [LU] => Array
+                        (
+                            [country_code] => LU
+                            [country_name] => Luxembourg
+                            [price] => 10
+                        )
+
+                    [LT] => Array
+                        (
+                            [country_code] => LT
+                            [country_name] => Lithuania
+                            [price] => 10
+                        )
+
+                    [LV] => Array
+                        (
+                            [country_code] => LV
+                            [country_name] => Latvia
+                            [price] => 10
+                        )
+
+                    [MC] => Array
+                        (
+                            [country_code] => MC
+                            [country_name] => Monaco
+                            [price] => 10
+                        )
+
+                    [MT] => Array
+                        (
+                            [country_code] => MT
+                            [country_name] => Malta
+                            [price] => 10
+                        )
+
+                    [NL] => Array
+                        (
+                            [country_code] => NL
+                            [country_name] => Netherlands
+                            [price] => 10
+                        )
+
+                    [NR] => Array
+                        (
+                            [country_code] => NR
+                            [country_name] => Nauru
+                            [price] => 10
+                        )
+
+                    [PL] => Array
+                        (
+                            [country_code] => PL
+                            [country_name] => Poland
+                            [price] => 10
+                        )
+
+                    [PT] => Array
+                        (
+                            [country_code] => PT
+                            [country_name] => Portugal
+                            [price] => 10
+                        )
+
+                    [RO] => Array
+                        (
+                            [country_code] => RO
+                            [country_name] => Romania
+                            [price] => 10
+                        )
+
+                    [SE] => Array
+                        (
+                            [country_code] => SE
+                            [country_name] => Sweden
+                            [price] => 10
+                        )
+
+                    [SK] => Array
+                        (
+                            [country_code] => SK
+                            [country_name] => Slovakia
+                            [price] => 10
+                        )
+
+                    [SI] => Array
+                        (
+                            [country_code] => SI
+                            [country_name] => Slovenia
+                            [price] => 10
+                        )
+
+                    [SM] => Array
+                        (
+                            [country_code] => SM
+                            [country_name] => San Marino
+                            [price] => 10
+                        )
+
+                    [TR] => Array
+                        (
+                            [country_code] => TR
+                            [country_name] => Turkey
+                            [price] => 10
+                        )
+
+                )
+
+            [additional_price_ranges] => Array
+                (
+                    [0] => Array
+                        (
+                            [from] => 0
+                            [to] => 1
+                            [value] => 0.25
+                        )
+
+                    [1] => Array
+                        (
+                            [from] => 1
+                            [to] => 10
+                            [value] => 0.8
+                        )
+
+                    [2] => Array
+                        (
+                            [from] => 10
+                            [to] =>
+                            [value] => 1.35
+                        )
+
+                )
+
+        )
+
+)

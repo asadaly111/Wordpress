@@ -18,6 +18,9 @@ foreach ($prodcts as $key) {
 		$firstimg  = $key['image'];
 		$sku = $key['sku'];
 		$price = $key['price_tax'];
+		$category = $key['category'];
+		$brand = $key['manufacturer'];
+		$inventory = $key['qty'];
 	
 	if (!wp_exist_post_by_title($title)):
 
@@ -31,23 +34,63 @@ foreach ($prodcts as $key) {
 		$attachmentid =  Generate_Featured_Image2($firstimg, $post_id);
 
 		update_post_meta( $post_id, '_thumbnail_id', $attachmentid);
+
 		update_post_meta( $post_id , '_regular_price', $price);
 		update_post_meta( $post_id , '_price', $price);
 		update_post_meta( $post_id , '_sku', $sku); // outofstock
 		update_post_meta( $post_id , '_stock_status', 'instock'); // outofstock
 		update_post_meta( $post_id , '_weight', "" );
 		update_post_meta( $post_id , '_visibility', 'visible' );
-		update_post_meta( $post_id , '_sold_individually', 'no' );
 		update_post_meta( $post_id , '_backorders', 'no' );
+		update_post_meta( $post_id , '_sold_individually', '' );
+
 		update_post_meta( $post_id , '_manage_stock', 'yes' );
-		update_post_meta( $post_id , '_product_version', '' );
+		update_post_meta( $post_id, '_stock', $inventory);
+
+		update_post_meta( $post_id , '_product_version', '3.7.0');
 		update_post_meta( $post_id , '_product_image_gallery', '' );
 		update_post_meta( $post_id , '_wc_review_count', '0' );
 		update_post_meta( $post_id , '_wc_average_rating', '0' );
 
 
 
+		$term1 = term_exists(trim($brand), 'brand_category');
+		if ($term1 !== 0 && $term1 !== null) {
+			$term_id2 = $term1['term_id'];
+		}else{
+			$term_d = wp_insert_term(
+				trim($brand),
+				'brand_category',
+				array(
+					'description'=> '',
+					'parent'=> 0
+				)
+			);
+			$term_id2 = $term_d['term_id'];
+		}
+		wp_set_object_terms( $post_id, $brand, 'brand_category', true);
+
+
+
+		$term = term_exists(trim($category), 'product_cat');
+		if ($term !== 0 && $term !== null) {
+			$term_id = $term['term_id'];
+		}else{
+			$term_d = wp_insert_term(
+				trim($category),
+				'product_cat',
+				array(
+					'description'=> '',
+					'parent'=> 0
+				)
+			);
+			$term_id = $term_d['term_id'];
+		}
+		wp_set_object_terms( $post_id, $category, 'product_cat', true);
+
+
 		wp_set_object_terms( $post_id, 'Powerbody', 'supplier', true);
+
 		echo '
 		<div class="alert alert-dismissible alert-success">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
