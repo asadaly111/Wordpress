@@ -64,10 +64,10 @@ public function re_authentication_check(){
 public function Product_list(){
 
     $client = new SoapClient($this->wsdl, array('cache_wsdl' => WSDL_CACHE_NONE));
-    
+
 
     $status = true;
-    $i = 1;
+    $i = 2;
     while ($status) {
 
         try {
@@ -77,68 +77,116 @@ public function Product_list(){
             if (!empty($result)) {
 
 
-            foreach ($result as $key) {
+
+                foreach ($result as $key) {
+
+                    try {
+                        $productget = $client->call($this->sesssion, 'dropshipping.getProductInfo', $key['product_id']);
+                        $productget = json_decode($productget, true);
 
 
-               $title =  $key['sku'];
-               $sku = $key['sku'];
-               $price = $key['price_tax'];
-               $inventory = $key['qty'];
-               $weight = $key['weight'];
-               $proid = $key['product_id'];
+                        $title =  $productget['name'];
+                        $discription = $productget['description_en'];
+                        $firstimg  = $productget['image'];
+                        $sku = $productget['sku'];
+                        $price = $productget['price_tax'];
+                        $category = $productget['category'];
+                        $brand = $productget['manufacturer'];
+                        $inventory = $productget['qty'];
+                        $weight = $productget['weight'];
 
-               $checksku = get_product_by_sku($sku);
 
-                     if (!$checksku):
+if (!wp_exist_post_by_title($title)):
+    $product['post_title']    = $title;
+    $product['post_author']   = '1';
+    $product['post_type']     = 'product';
+    $product['post_content']  = $discription;
+    $product['post_status']   = "publish";
+    $post_id = wp_insert_post( $product);
+    $attachmentid =  Generate_Featured_Image2($firstimg, $post_id);
+    update_post_meta( $post_id, '_thumbnail_id', $attachmentid);
+    update_post_meta( $post_id , '_regular_price', $price);
+    update_post_meta( $post_id , '_price', $price);
+    update_post_meta( $post_id , '_sku', $sku); // outofstock
+    update_post_meta( $post_id , '_stock_status', 'instock'); // outofstock
+    update_post_meta( $post_id , '_weight', $weight);
+    update_post_meta( $post_id , '_visibility', 'visible' );
+    update_post_meta( $post_id , '_backorders', 'no' );
+    update_post_meta( $post_id , '_sold_individually', '' );
+    update_post_meta( $post_id , '_manage_stock', 'yes' );
+    update_post_meta( $post_id, '_stock', $inventory);
+    update_post_meta( $post_id , '_product_version', '3.7.0');
+    update_post_meta( $post_id , '_product_image_gallery', '' );
+    update_post_meta( $post_id , '_wc_review_count', '0' );
+    update_post_meta( $post_id , '_wc_average_rating', '0' );
+    $term1 = term_exists(trim($brand), 'brand_category');
+    if ($term1 !== 0 && $term1 !== null) {
+        $term_id2 = $term1['term_id'];
+    }else{
+        $term_d = wp_insert_term(
+            trim($brand),
+            'brand_category',
+            array(
+                'description'=> '',
+                'parent'=> 0
+            )
+        );
+        $term_id2 = $term_d['term_id'];
+    }
+    wp_set_object_terms( $post_id, $brand, 'brand_category', true);
+    $term = term_exists(trim($category), 'product_cat');
+    if ($term !== 0 && $term !== null) {
+        $term_id = $term['term_id'];
+    }else{
+        $term_d = wp_insert_term(
+            trim($category),
+            'product_cat',
+            array(
+                'description'=> '',
+                'parent'=> 0
+            )
+        );
+        $term_id = $term_d['term_id'];
+    }
+    wp_set_object_terms( $post_id, $category, 'product_cat', true);
+    wp_set_object_terms( $post_id, 'Powerbody', 'supplier', true);
+    echo '
+    <div class="alert alert-dismissible alert-success">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    This Simple product has been uploaded successfully! <a href="'.get_the_permalink($post_id).'" class="alert-link">'.get_the_permalink($post_id).'</a>.
+    </div>
+    ';
+else:
+    $get = wp_exist_post_by_title($title);
+    echo '
+    <div class="alert alert-dismissible alert-success">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    Product already exist! <a href="'.get_the_permalink($get->ID).'" class="alert-link">'.$title.'</a>.
+    </div>
+    ';
+endif;                        
+                       
 
-                        $product['post_title']    = $title;
-                        $product['post_author']   = '1';
-                        $product['post_type']     = 'product';
-                        $product['post_status']   = "pending";
-                        $post_id = wp_insert_post( $product);
-                        update_post_meta( $post_id , '_regular_price', $price);
-                        update_post_meta( $post_id , '_price', $price);
-                        update_post_meta( $post_id , '_sku', $sku); // outofstock
-                        update_post_meta( $post_id , '_stock_status', 'instock'); // outofstock
-                        update_post_meta( $post_id , '_weight', $weight);
-                        update_post_meta( $post_id , '_visibility', 'visible' );
-                        update_post_meta( $post_id , '_backorders', 'no' );
-                        update_post_meta( $post_id , '_sold_individually', '' );
-                        update_post_meta( $post_id , '_manage_stock', 'yes' );
-                        update_post_meta( $post_id, '_stock', $inventory);
-                        update_post_meta( $post_id , '_product_version', '3.7.0');
-                        update_post_meta( $post_id , '_product_image_gallery', '' );
-                        update_post_meta( $post_id , '_wc_review_count', '0' );
-                        update_post_meta( $post_id , '_wc_average_rating', '0' );
-                        wp_set_object_terms( $post_id, 'Powerbody', 'supplier', true);
-                        echo '
-                        <div class="alert alert-dismissible alert-success">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        This Simple product has been uploaded successfully! <a href="'.get_the_permalink($post_id).'" class="alert-link">'.get_the_permalink($post_id).'</a>.
-                        </div>
-                        ';
 
-                    else:
-                        $post_id = $checksku;
-                        update_post_meta( $post_id , '_regular_price', $price);
-                        update_post_meta( $post_id , '_price', $price);
-                        update_post_meta( $post_id , '_sku', $sku); // outofstock
-                        update_post_meta( $post_id , '_weight', $weight);
-                        update_post_meta( $post_id, '_stock', $inventory);
-                        echo '
-                        <div class="alert alert-dismissible alert-success">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        Product already exist! This is only updated. <a href="'.get_the_permalink($post_id).'" class="alert-link">'.get_the_title($post_id).'</a>.
-                        </div>
-                        ';
-                    endif;
-            }
+
+
+
+                    } catch (Exception $e) {
+                        if ($e->faultcode == 5) {
+                            $this->re_authentication_check();
+                        }
+                        var_dump($e);
+                        // $status = false;
+                    }
+                }
 
 
 
                 $i++;
+
                 echo $i;
                 echo "<br>";
+
             }else{
                 $status = false;
                 echo $i;
@@ -153,6 +201,7 @@ public function Product_list(){
             echo $i;
             echo "<br>";
             var_dump($e);
+
         }
 
 
@@ -213,7 +262,7 @@ public function create_order($order_id){
         }
 
         $storeOrderData['id']               = $_SESSION['proid'];
-        $storeOrderData['status']           = 'Success';
+        $storeOrderData['status']           = 'Pending';
         $storeOrderData['date_add']         = date("Y-m-d");
         $storeOrderData['comment']          = $order_data['customer_note'];
         $storeOrderData['shipping_price']   = '';
@@ -239,21 +288,17 @@ public function create_order($order_id){
             $order->update_meta_data( '_powerBodyApiResponse', $result);
             $order->save();
             $client->endSession($session);
-            unset($_SESSION['proid']);
 
         } catch (Exception $e) {
             if ($e->faultcode == 5) {
                 $this->re_authentication_check();
             }
             $order->update_meta_data( '_powerBodyApiResponse', 'Failed Submitting order');
-            $order->save();
         }
     }
 
 
-    public function after_checkout_validation($posted, $errors){
-
-
+    public function after_checkout_validation($posted){
         global $woocommerce;
         $items = $woocommerce->cart->get_cart();
         $i = 0;
@@ -268,12 +313,7 @@ public function create_order($order_id){
             $i++;
         }
         
-
-
-        if (empty($_SESSION['proid'])) {
-            $_SESSION['proid'] = generateRandomString();
-        }
-
+        $_SESSION['proid'] = generateRandomString();
 
         $storeOrderData['id']               = $_SESSION['proid'];
         $storeOrderData['status']           = 'Pending';
@@ -296,6 +336,7 @@ public function create_order($order_id){
         );
         $storeOrderData['products'] = $storrproduct;
 
+
         try {
             $client = new SoapClient($this->wsdl, array('cache_wsdl' => WSDL_CACHE_NONE));
             $result = $client->call($this->sesssion, 'dropshipping.createOrder' , json_encode($storeOrderData) );
@@ -303,14 +344,17 @@ public function create_order($order_id){
             if ($result['api_response'] == 'FAIL') {
                 wc_add_notice( __( $result['api_response_error'], 'woocommerce' ), 'error' );
             }
+            if ($result['api_response'] == 'ALREADY_EXISTS') {
+                wc_add_notice( __( 'Product Already Exist!', 'woocommerce' ), 'error' );
+            }
         } catch (Exception $e) {
             if ($e->faultcode == 5) {
                 $this->re_authentication_check();
-                wc_add_notice( __( 'Session expired - Please Try to submit again!', 'woocommerce' ), 'error' );
-            }else{
-                wc_add_notice( __( $e->faultstring, 'woocommerce' ), 'error' );
             }
+            wc_add_notice( __( json_encode($e), 'woocommerce' ), 'error' );
         }
+
+
 
     }
 

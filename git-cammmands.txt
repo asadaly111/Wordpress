@@ -1,0 +1,8 @@
+
+
+
+//clone a branch
+	git branch -a
+	git checkout gitName
+
+

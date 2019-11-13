@@ -227,5 +227,32 @@ function generateRandomString($length = 10) {
     return $randomString;
 }
 
+function get_product_by_sku( $sku ) {
+  global $wpdb;
+  $product_id = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key='_sku' AND meta_value='%s' LIMIT 1", $sku ) );
+  if ( $product_id ) 
+    return $product_id;
+    // return $product = get_product( $product_id );
+}
 
-?>
+add_action( 'before_delete_post', 'delete_product_images', 10, 1 );
+function delete_product_images( $post_id ){
+    
+    $product = wc_get_product( $post_id );
+    if ( !$product ) {
+        return;
+    }
+
+    $featured_image_id = $product->get_image_id();
+    $image_galleries_id = $product->get_gallery_image_ids();
+
+    if( !empty( $featured_image_id ) ) {
+        wp_delete_post( $featured_image_id );
+    }
+
+    if( !empty( $image_galleries_id ) ) {
+        foreach( $image_galleries_id as $single_image_id ) {
+            wp_delete_post( $single_image_id );
+        }
+    }
+}
