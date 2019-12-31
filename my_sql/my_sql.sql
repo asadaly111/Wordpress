@@ -19,6 +19,24 @@ FROM wp_term_relationships AS a
 INNER JOIN wp_postmeta as b ON a.object_id = b.post_id
 WHERE a.term_taxonomy_id = 8 AND b.meta_key = "cs_price"
 
+
+SELECT 
+a.meta_id,
+a.post_id,
+a.meta_key,
+a.meta_value
+FROM wp_postmeta as a 
+WHERE a.meta_key = "product_api_id" AND NOT EXISTS(
+	SELECT 
+	b.meta_value
+	FROM wp_postmeta as b 
+	WHERE a.post_id = b.post_id AND b.meta_key = "cron_date_update" AND b.meta_value = "'.date("d-m-Y").'"
+)
+LIMIT 20
+
+
+
+
 -- count every month data
 	SELECT Year(created), Month(created), Count(*) as count
 	FROM yourttable

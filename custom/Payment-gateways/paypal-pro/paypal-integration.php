@@ -53,6 +53,8 @@ $request_params = array(
 	'CURRENCYCODE'  => 'USD',
 	'DESC'          => $_POST['payment']['item'],
 );
+
+
 $nvp_string = '';
 foreach($request_params as $var=>$val){
 	$nvp_string .= '&'.$var.'='.urlencode($val);

@@ -1,6 +1,7 @@
 console.log(cs_object.mainservice);
 console.log(cs_object.subservice);
 
+echo "<script>var options = " . json_encode($array) . ';</script>';
 
 jQuery.each(cs_object.mainservice, function(index, val) {
 	console.log(val);

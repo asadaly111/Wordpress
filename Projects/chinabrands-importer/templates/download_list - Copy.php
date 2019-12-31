@@ -1,37 +1,4 @@
 <?php
-// $data  = get_post_meta( 2711, '_product_attributes', true);
-// $attributes = array(
-// 	array("name"=>"Size","options"=>array("S","L","XL","XXL"),"position"=>0,"visible"=>1,"variation"=>1),
-// 	array("name"=>"Color","options"=>array("Red","Blue","Black","White", "Orange" , "Pink", "Black", "Deep blue"),"position"=>1,"visible"=>1,"variation"=>1)
-// );
-// if($attributes){
-// 	$productAttributes=array();
-// 	foreach($attributes as $attribute){
-// 		$attr = wc_sanitize_taxonomy_name(stripslashes($attribute["name"]));
-// 		$attr = $attr; 
-// 		if($attribute["options"]){
-// 			foreach($attribute["options"] as $option){
-// 				wp_set_object_terms($product_id,$option,$attr,true); 
-// 			}
-// 		}
-// 		$productAttributes[sanitize_title($attr)] = array(
-// 			'name' => sanitize_title($attr),
-// 			'value' => implode('|', $attribute["options"]),
-// 			'position' => $attribute["position"],
-// 			'is_visible' => $attribute["visible"],
-// 			'is_variation' => $attribute["variation"],
-// 			'is_taxonomy' => 0
-// 		);
-// 	}
-// }
-// pr($data);
-// pr($productAttributes);
-// die();
-
-
-
-
-
 do_action( 'lms_scripts');
 global $ChinaBrand;
 $prodcts = $ChinaBrand->show_all_download_product_list();
@@ -70,45 +37,18 @@ $objProduct = new WC_Product();
 
 foreach ($prodcts->msg->page_result as $key) {
 	$productdetail = $ChinaBrand->show_product_by_id($key->goods_sn);
+
 	
-	$inc = 1;
-	$prcount = '';
-	$colors = array();
-	$sizes = array();
+	$i = 0;
 	foreach ($productdetail->msg as $key) {
+
 		if ($key->status != 1) {
-			continue;
-		}else{
-			$prcount = $inc;
-			$colors[] = $key->color;
-			$sizes[] = $key->size;
-			$inc++;
-		}
-	}	
-	// check if size is empty
-	foreach ($sizes as $sizeskey => $sizesvalue) {
-		if (empty($sizesvalue)) {
-			unset($sizes[$sizeskey]);
-		}
-	}
-	// check if color is empty
-	foreach ($colors as $colorskey => $colorsvalue) {
-		if (empty($colorsvalue)) {
-			unset($colors[$colorskey]);
-		}
-	}
-
-
-	// Create Parent Product If product is variable
-	$parentcount = 0;
-	foreach ($productdetail->msg as $parentkey) {
-		if ($parentkey->status != 1) {
 			continue;
 		}
 
 
 		$price = '';
-		$mm  = (array) $parentkey->warehouse_list;
+		$mm  = (array) $key->warehouse_list;
 		if(count($mm) > 0){
 			foreach ($mm as $aaa => $value) {
 				$price = $value->price;
@@ -116,40 +56,45 @@ foreach ($prodcts->msg->page_result as $key) {
 		}
 		$price = $price;
 
+		if (count($productdetail->msg) > 1) {
 
-		if ($prcount > 1) {
-			if ($parentcount == 0) {
+			if ($i == 0) {
 				$objProduct = new WC_Product_Variable();
-				$objProduct->set_name($parentkey->title);
-				$objProduct->set_status("publish");
-				$objProduct->set_catalog_visibility('visible');
-				// $objProduct->set_sku($parentkey->sku);
-				$objProduct->set_price($price);
-				$objProduct->set_regular_price($price);
-				$objProduct->set_manage_stock(true);
+
+				
+				$objProduct->set_name($key->title);
+				$objProduct->set_status("publish");  // can be publish,draft or any wordpress post status
+				$objProduct->set_catalog_visibility('visible'); // add the product visibility status
+				$objProduct->set_sku($key->sku); //can be blank in case you don't have sku, but You can't add duplicate sku's
+				$objProduct->set_price($price); // set product price
+				$objProduct->set_regular_price($price); // set product regular price
+				$objProduct->set_manage_stock(true); // true or false
 				$objProduct->set_stock_quantity(1000);
-				$objProduct->set_stock_status('instock');
+				$objProduct->set_stock_status('instock'); // in stock or out of stock value
 				$objProduct->set_backorders('no');
 				$objProduct->set_reviews_allowed(true);
 				$objProduct->set_sold_individually(false);
 				$product_id = $objProduct->save();
-				$firstimg  = $parentkey->original_img[0];
+
+
+				$firstimg  = $key->original_img[0];
 				$attachmentid =  Generate_Featured_Image2($firstimg, $product_id);
 				update_post_meta( $product_id, '_thumbnail_id', $attachmentid);
-				if (!empty($colors)) {
-					$attributes[] = array("name"=>"Color","options"=>$colors,"position"=>2,"visible"=>1,"variation"=>1);
-				}
-				if (!empty($sizes)) {
-					$attributes[] = array("name"=>"Size","options"=>$sizes,"position"=>1,"visible"=>1,"variation"=>1);
-				}
+
+
+				$attributes = array(
+					array("name"=>"Size","options"=>array("S","L","XL","XXL"),"position"=>1,"visible"=>1,"variation"=>1),
+					array("name"=>"Color","options"=>array("Red","Blue","Black","White"),"position"=>2,"visible"=>1,"variation"=>1)
+				);
+
 				if($attributes){
 					$productAttributes=array();
 					foreach($attributes as $attribute){
 						$attr = wc_sanitize_taxonomy_name(stripslashes($attribute["name"]));
-						$attr = 'pa_'.$attr;
+						$attr = 'pa_'.$attr; 
 						if($attribute["options"]){
 							foreach($attribute["options"] as $option){
-								wp_set_object_terms($product_id,$option,$attr,true);
+								wp_set_object_terms($product_id,$option,$attr,true); 
 							}
 						}
 						$productAttributes[sanitize_title($attr)] = array(
@@ -161,49 +106,82 @@ foreach ($prodcts->msg->page_result as $key) {
 							'is_taxonomy' => '1'
 						);
 					}
-					update_post_meta($product_id,'_product_attributes',$productAttributes);
+					update_post_meta($product_id,'_product_attributes',$productAttributes); 
 				}
-				wp_set_object_terms( $product_id, 'Banggoods', 'supplier', true);
-				$parentcount++;
-			}
-		}
-	}//create parent prodcut
+
+				 wp_set_object_terms( $product_id, 'Banggoods', 'supplier', true);
 
 
-
-	foreach ($productdetail->msg as $key) {
-		if ($key->status != 1) {
-			continue;
-		}
-		$price = '';
-		$mm  = (array) $key->warehouse_list;
-		if(count($mm) > 0){
-			foreach ($mm as $aaa => $value) {
-				$price = $value->price;
-			}
-		}
-		$price = $price;
-		if ($prcount > 1) {
+				$i++;
+			}else{
+				
 			$firstimg  = $key->original_img[0];
 			$attachmentid =  Generate_Featured_Image2($firstimg, $product_id);
-		// The variation data
+
+			// The variation data
 			$variation_data =  array(
-				'attributes' => array(
-					'size'  => $key->size,
-					'color' => $key->color,
-				),
-				'sku'           => $key->sku,
-				'regular_price' => $price,
-				'sale_price'    => $price,
-				'stock_qty'     => 1000,
-				'featureimg' 	=> $attachmentid,
+			    'attributes' => array(
+			        'size'  => $key->size,
+			        'color' => $key->color,
+			    ),
+			    'sku'           => $key->sku,
+			    'regular_price' => $price,
+			    'sale_price'    => $price,
+			    'stock_qty'     => 1000,
+			    'featureimg' 	=> $attachmentid,
 			);
-		// The function to be run
+			// The function to be run
 			create_product_variation( $product_id, $variation_data );
+
+
+			// $sku = $key->sku;
+			// $objVariation = new WC_Product_Variation();
+			// $objVariation->set_price($key->warehouse_list->SZXIAWAN->price);
+			// $objVariation->set_regular_price($key->warehouse_list->SZXIAWAN->price);
+			// $objVariation->set_parent_id($product_id);
+			// if(isset($sku)){
+			// 	$objVariation->set_sku($sku);
+			// }
+			// // $objVariation->set_manage_stock($variation["manage_stock"]);
+			// $objVariation->set_stock_status('instock');
+			// $var_attributes = array();
+
+			// if (!empty($key->size)) {
+			// 	$taxonomy = "pa_".wc_sanitize_taxonomy_name(stripslashes('Size'));
+			// 	$attr_val_slug =  wc_sanitize_taxonomy_name(stripslashes($key->size));
+			// 	$var_attributes[$taxonomy]=$attr_val_slug;
+			// }
+			// if (!empty($key->color)) {
+
+			// 	$taxonomy = "pa_".wc_sanitize_taxonomy_name(stripslashes('Color'));
+			// 	$attr_val_slug =  wc_sanitize_taxonomy_name(stripslashes($key->color));
+			// 	$var_attributes[$taxonomy]=$attr_val_slug;
+			// }
+			// $objVariation->set_attributes($var_attributes);
+			// $objVariation->save();
+
+				$i++;
+			}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		}else{
-
-
-
 			$title =  $key->title;
 			$discription = $key->goods_desc;
 			$firstimg  = $key->original_img[0];
@@ -231,7 +209,9 @@ foreach ($prodcts->msg->page_result as $key) {
 			update_post_meta( $post_id , '_product_image_gallery', '' );
 			update_post_meta( $post_id , '_wc_review_count', '0' );
 			update_post_meta( $post_id , '_wc_average_rating', '0' );
+
 			wp_set_object_terms( $product_id, 'Banggoods', 'supplier', true);
+			
 			echo '
 			<div class="alert alert-dismissible alert-success">
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -240,7 +220,6 @@ foreach ($prodcts->msg->page_result as $key) {
 			';
 		}
 	}
-	echo '<div class="notice notice-success is-dismissible"><p>Product has been created!</p></div>';
 }
 
 

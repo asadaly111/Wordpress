@@ -79,6 +79,7 @@ public function Product_list(){
 
             foreach ($result as $key) {
 
+                // pr($key);
 
                $title =  $key['sku'];
                $sku = $key['sku'];
@@ -96,6 +97,7 @@ public function Product_list(){
                         $product['post_type']     = 'product';
                         $product['post_status']   = "pending";
                         $post_id = wp_insert_post( $product);
+                        update_post_meta( $post_id , 'product_api_id', $proid);
                         update_post_meta( $post_id , '_regular_price', $price);
                         update_post_meta( $post_id , '_price', $price);
                         update_post_meta( $post_id , '_sku', $sku); // outofstock
@@ -120,6 +122,7 @@ public function Product_list(){
 
                     else:
                         $post_id = $checksku;
+                        update_post_meta( $post_id , 'product_api_id', $proid);
                         update_post_meta( $post_id , '_regular_price', $price);
                         update_post_meta( $post_id , '_price', $price);
                         update_post_meta( $post_id , '_sku', $sku); // outofstock
@@ -139,6 +142,7 @@ public function Product_list(){
                 $i++;
                 echo $i;
                 echo "<br>";
+                // $status = false;
             }else{
                 $status = false;
                 echo $i;

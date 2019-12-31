@@ -1,8 +1,17 @@
-
-
-
-//clone a branch
+clone a branch
 	git branch -a
 	git checkout gitName
 
+
+Create branch 
+	git branch Development
+
+Switch to branch 
+	git checkout Development
+
+
+Push
+	git add .
+	git commit -m "commit"
+	git push origin Development
 
