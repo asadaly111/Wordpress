@@ -2,6 +2,7 @@
 session_start();
 require dirname(__FILE__, 6).'/wp-load.php';
 $_SESSION['formdata']['slot_Id'] = $_GET['duration'];
+$_SESSION['formdata']['slotsub_Id'] = @$_GET['durationsub'];
 $_SESSION['formdata']['durationTime'] = $_GET['durationTime'];
 $_SESSION['formdata']['price'] = $_GET['price'];
 $_SESSION['step4_url'] = $_SERVER['REQUEST_URI'];

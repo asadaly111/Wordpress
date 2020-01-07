@@ -167,49 +167,43 @@ static $endpoint = 'http://dev27.onlinetestingserver.com/booking-system';
 
 
 
-       // book a slot
-
-
-        public function bookslot($resource,$slot,$date,$starttime,$services,$name,$email,$phone,$user_id){
-                $data = array(
-                    'appid' =>  self::$app_id,
-                    'secret_key' =>  self::$secret_key,
-                    'select_resource'=>$resource,           //resource id
-                    'resource_package'=>$slot,              //timeframe id
-                    "starttime"=>$starttime,
-                    'date'=>$date,
-                    'email'=>$email,
-                    'phone'=>$phone,
-                    'name'=>$name,
-                    'user_id'=>$user_id,   // user id will be 0 for guest user
-                    "services"=>$services         //service id
-                );
-                $url = self::$endpoint . '/booking/bookslot';
-                $response =self::request($data, $url);
-            return $response;
+        public function bookslot($resource,$slot,$date,$starttime,$services,$name,$email,$phone,$user_id,$subserviceslots){
+        $data = array(
+            'appid' =>  self::$app_id,
+            'secret_key' =>  self::$secret_key,
+            'select_resource'=>$resource,           //resource id
+            'resource_package'=>$slot,              //timeframe id of main service
+            "subserviceslots"=>$subserviceslots,    //array of subservice timeframe ids (if any)
+            "starttime"=>$starttime,
+            'date'=>$date,
+            'email'=>$email,
+            'phone'=>$phone,
+            'name'=>$name,
+            'user_id'=>$user_id,   // user id will be 0 for guest user
+            "services"=>$services         //service id
+        );
+        $url = self::$endpoint . '/booking/bookslot';
+        $response =self::request($data, $url);
+        return $response;
         }
 
 
 
 
-//check available slots of a date.
-       public function availabilityofslots($resource,$slot,$date,$subserviceslots){
 
-                $data = array(
-                    'appid' =>  self::$app_id,
-                    'secret_key' =>  self::$secret_key,
-                    'select_resource'=>$resource,             //resource id
-                    'resource_package'=>$slot,                //timeframe id
-                    'date'=>$date,
-                    'subserviceslots'=>$subserviceslots
-                );
-
-                $url = self::$endpoint . '/booking/availabilityofslots';
-                $response =self::request($data, $url);
-
-            return $response;
-
-
+        //check available slots of a date.
+        public function availabilityofslots($resource,$slot,$date,$subserviceslots){
+        $data = array(
+            'appid' =>  self::$app_id,
+            'secret_key' =>  self::$secret_key,
+                'select_resource'=>$resource,             //resource id
+                'resource_package'=>$slot,                //timeframe id
+                'date'=>$date,
+                'subserviceslots'=>$subserviceslots       //array of subservice timeframe ids (if any)
+            );
+        $url = self::$endpoint . '/booking/availabilityofslots';
+        $response =self::request($data, $url);
+        return $response;
         }
 
         //services

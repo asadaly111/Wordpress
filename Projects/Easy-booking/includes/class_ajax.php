@@ -73,7 +73,11 @@ class cs_ajax{
 
 
 			global $bokingobj, $wpdb;
-			$data2 = json_decode( $bokingobj->bookslot(6,$slot_Id,$date,$timeslot,$serviceId,$fullname,$email,$phone,0), true);
+			
+			$data2 = json_decode( $bokingobj->bookslot(6,$slot_Id,$date,$timeslot,$serviceId,$fullname,$email,$phone,0,[@$_POST['slotsub_Id']]), true);
+
+			// bookslot($resource,$slot,$date,$starttime,$services,$name,$email,$phone,$user_id,$subserviceslots)
+
 
 			$response['response'] = $result_array['TRANSACTIONID'];
 			$response['status'] = true;

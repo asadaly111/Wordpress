@@ -67,11 +67,17 @@ function ini_on_demand() {
         jQuery(".formbasicvalidate").validate();
     }
 
+    if (jQuery(".formbasicvalidate1").length > 0) {
+        jQuery(".formbasicvalidate1").validate();
+    }
 
+    if (jQuery(".formbasicvalidate2").length > 0) {
+        jQuery(".formbasicvalidate2").validate();
+    }
 
-
-
-
+    if (jQuery(".formbasicvalidate3").length > 0) {
+        jQuery(".formbasicvalidate3").validate();
+    }
 
 }
 

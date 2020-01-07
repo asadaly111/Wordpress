@@ -46,7 +46,7 @@ require 'includes/class_ajax.php';
 // Custom tmeplate
 add_filter( 'page_template', 'wpa3396_page_template' );
 function wpa3396_page_template( $page_template ){
-    if ( is_page( 'booking' ) ) {
+    if ( is_page( 'book' ) ) {
         $page_template = Easy_PATH. '/template/booking-main.php';
     }
     return $page_template;
