@@ -156,6 +156,10 @@ function pr($data = array())
 	echo "</pre>";
 }
 
+function timeto12($time){
+    return $time_in_12_hour_format  = date("g:i a", strtotime($time));
+}
+
 function generateRandomString($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);

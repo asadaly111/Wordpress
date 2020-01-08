@@ -40,7 +40,7 @@ require 'includes/class_wrapper.php';
 require 'includes/clas_main.php';
 require 'includes/easy_booking_menu.php';
 require 'includes/class_ajax.php';
-
+require 'includes/PHP-Email-Template-Parser-Class-master/emailTemplateParser.php';
 
 
 // Custom tmeplate

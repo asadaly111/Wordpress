@@ -66,6 +66,8 @@ class cs_ajax{
 			$slot_Id 	= $_POST['slot_Id'];
 			$date 		= $_POST['date'];
 			$timeslot 	= $_POST['timeslot'];
+			$serviceName 	= $_POST['serviceName'];
+
 
 			$email 		= $_POST['email'];
 			$phone 		= $_POST['mobile'];
@@ -78,20 +80,37 @@ class cs_ajax{
 
 			// bookslot($resource,$slot,$date,$starttime,$services,$name,$email,$phone,$user_id,$subserviceslots)
 
+            $data = array(
+                'booking_id' 	=> $data2['bookingid'],
+                'transactionid' => $result_array['TRANSACTIONID'],
+                'formdata' 		=> json_encode($_POST),
+                'response' 		=> json_encode($data),
+                'status' 		=> 'success',
+            );
+            $wpdb->insert($wpdb->prefix.'easybooking' , $data);
+
+
+            $emailTemplate =  dirname(__FILE__).'/PHP-Email-Template-Parser-Class-master/email-template.tpl';
+            $emailHtml = new EmailTemplateParser($emailTemplate);
+            $emailHtml->setVar('order_id', $data2['bookingid']);
+            $emailHtml->setVar('date', $date);
+            $emailHtml->setVar('serviceName', $serviceName);
+            $emailHtml->setVar('qty', '1');
+            $emailHtml->setVar('slot', timeto12($timeslot) );
+            $emailHtml->setVar('price', $amount);
+            $message = $emailHtml->output();
+
+
+            $headers = array('Content-Type: text/html; charset=UTF-8');
+            $to = 'asad.ali@salsoft.net';
+            $subject = "Nina V Booking Invoice";
+            wp_mail($to, $subject,$message, $headers);
+            //user email alert
+            wp_mail($email, $subject,$message, $headers);
 
 			$response['response'] = $result_array['TRANSACTIONID'];
 			$response['status'] = true;
 			$response['message'] = $data2;
-
-			$data = array(
-				'booking_id' 	=> $data2['bookingid'], 
-				'transactionid' => $result_array['TRANSACTIONID'], 
-				'formdata' 		=> json_encode($_POST), 
-				'response' 		=> json_encode($data), 
-				'status' 		=> 'success', 
-			);
-			$wpdb->insert($wpdb->prefix.'easybooking' , $data);
-
 		}else{
 			$response['status'] =  false;
 			$response['response'] = null;

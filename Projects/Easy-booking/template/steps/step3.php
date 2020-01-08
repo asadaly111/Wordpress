@@ -50,14 +50,14 @@ input.error+ruby {display: block !important;}
 
 						<form action="#" method="POST" class="durationsubmnit formbasicvalidate">
 							<div class="user-duration">
-								<h5>Select Duration <ruby><?php echo $_SESSION['formdata']['serviceName']; ?></ruby></h5>
+                                <h5>Select Duration <span class="ch"><?php echo $_SESSION['formdata']['serviceName']; ?></span></h5>
 								<ul>
 
 									<?php if ($timess->timepackages): ?>
 										<?php foreach ($timess->timepackages as $key): ?>
 											<li>
 												<label for="<?php echo $key->id; ?>"><h6><?php echo $key->slot; ?> Minutes </h6></label>
-												<div><input id="<?php echo $key->id; ?>" type="radio" name="duration" value="<?php echo $key->id; ?>" required data-duration="<?php echo $key->slot; ?>" data-price="50">
+												<div><input id="<?php echo $key->id; ?>" type="radio" name="duration" value="<?php echo $key->id; ?>" required data-duration="<?php echo $key->slot; ?>" data-price="<?php echo $key->price; ?>">
 													<span>$<?php echo $key->price; ?></span></div>
 												</li>
 											<?php endforeach; ?>
@@ -82,24 +82,25 @@ input.error+ruby {display: block !important;}
 				<div class="container">
 					<div class="row">
 
-						<?php $i =1; foreach ($data->subservices as $key): ?>
+						<?php $i =1;$i2 =1; foreach ($data->subservices as $key): ?>
 							<form action="#" method="POST" class="durationsubmnit formbasicvalidate<?php echo $i++; ?>">
 								<div class="col-md-4 col-sm-12">
 									<div class="booking-clm">
 										<div class="user-duration">
-											<h5>Select Duration<ruby><?php echo $key[0]->sub[0]->name; ?> </ruby></h5>
+											<h5>Select Duration <span class="ch">Combo Package <?php echo $i2++; ?></span></h5>
 											<ul>
 												<?php foreach ($key as $keykey): ?>
 
 													<li>
-														<label for="radio-1"><h6><h6><?php echo $keykey->slot; ?> Minutes</h6> <p>£<?php echo $keykey->price; ?></p></h6></label>
+														<label for="radio-1"><h6><h6><?php echo $keykey->slot; ?> Minutes</h6> <p>£<?php echo $keykey->price; ?> (<?php echo $keykey->name; ?> )</p></h6></label>
 														<input type="radio" name="duration" value="<?php echo $keykey->id; ?>" required data-duration="<?php echo $keykey->slot; ?>" data-price="<?php echo $keykey->price; ?>">
 														<ruby style="display: none;">Please select the the Duration</ruby>
 													</li>
+
 													<?php foreach ($keykey->sub as $keykeykey): ?>
 														<li class="undrli">
-															<label for="radio-1"><h6>+<?php echo $keykeykey->slot; ?> Minutes<br></h6> <p> £<?php echo $keykeykey->price; ?></p></label>
-															<input type="radio" name="durationsub" value="<?php echo $keykeykey->timeslot_id; ?>" required> 
+															<label for="radio-1"><h6>+<?php echo $keykeykey->slot; ?> Minutes<br></h6> <p> £<?php echo $keykeykey->price; ?> (<?php echo $keykeykey->name; ?>) = £<?php echo $keykey->price+$keykeykey->price; ?></p></label>
+															<input type="radio" name="durationsub" value="<?php echo $keykeykey->timeslot_id; ?>" required data-price="<?php echo $keykeykey->price; ?>">
 															<ruby style="display: none;">Please select one Addon</ruby>
 														</li>
 													<?php endforeach; ?>

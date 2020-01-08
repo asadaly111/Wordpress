@@ -464,7 +464,7 @@
 
 /* ***** Header-sec(Start) ***** */
 
-.header-sec { background-color: #fff; }
+/*.header-sec { background-color: #fff; }*/
 
 .header-sec .logo-sec img { max-width: 100%; margin: 10px auto 0px auto; display: table; transition: .8s; }
 
@@ -690,9 +690,9 @@ div#slotsappend h2 {
 
 .packages .clmm { padding: 120px 0px !important; text-align: center !important; color: #fff !important; }
 
-.packages .clmm h1 { font-size: 26px !important; font-weight: 700; text-transform: uppercase; font-family: Montserrat; }
+.packages .clmm h1 { font-size: 30px !important; font-weight: 700; text-transform: uppercase; font-family: Montserrat;color: #fff !important; }
 
-.packages .msg-clm1.clmm { background-image: url(../images/img.png); background-repeat: no-repeat !important; background-size: 100% 100%; padding: 145px 0px !important; }
+.packages .msg-clm1.clmm { background-image: url(../images/img.png); background-repeat: no-repeat !important; background-size: cover !important; padding: 145px 0px !important; }
 
 .packages { padding-top: 60px !important; }
 
@@ -735,12 +735,33 @@ div#inr-treat { margin-top: 30px; }
 
 .mobile-treatment input[type=submit]:hover { background-color: #000000; }
 
-.appointment-form { background-color: #fff; padding: 60px 0px; }
+.appointment-form { background-color: #fff; padding: 60px 0px;
+border: 1px solid #ccc;
+    box-sizing: border-box;
+ }
 
 .mobile-treatment .appointment-form h5 { color: #333333; font-family: Montserrat; font-weight: 700; font-size: 16px; margin: 20px auto; display: table; }
 
+.appointment-form input[type=submit] {
+    background-color: #961622 !important;
+    border:1px solid  #961622 !important;
+    color: #fff;
+    -webkit-transition: all 500ms ease-in-out;
+-moz-transition: all 500ms ease-in-out;
+-ms-transition: all 500ms ease-in-out;
+-o-transition: all 500ms ease-in-out;
+transition: all 500ms ease-in-out;
+}
+.appointment-form input[type=submit]:hover{
+    background-color: #fff !important;
+    color: #961622;
+    -webkit-transition: all 500ms ease-in-out;
+-moz-transition: all 500ms ease-in-out;
+-ms-transition: all 500ms ease-in-out;
+-o-transition: all 500ms ease-in-out;
+transition: all 500ms ease-in-out;
 
-
+}
 /* ***** Mobile-treatement-sec(End) ***** */
 
 
@@ -825,7 +846,7 @@ span.timeslot-day.active { position: relative; }
 
 span.timeslot-day.active:before { content: ""; width: 100%; height: 2px; background-color: #b91120; position: absolute; top: 20px; }
 
-.timeslot-bottom { background-color: red; }
+.timeslot-bottom {    background-color: maroon; }
 
 .timeslot-bottom-main {    /* background-color: red; */ }
 
@@ -985,8 +1006,32 @@ body .checkout-page p { color: #999999; padding-bottom: 15px; font-size: 16px; }
 .discount-field .discount-img { position: absolute; left: 10px; padding-top: 12px; }
 
 
-@media only screen and (max-width:1000px)
-{
+div#formappen {
+    background: #f4f5f7 !important;
+    padding-bottom: 100px;
+}
+
+button.booking-submit-btn {
+    width: 100%;
+    border-radius: 5px !important;
+    padding: 12px 0;
+    font-size: 17px !important;
+}
+
+.booking-sec .booking-clm .user-duration h5 span.ch {
+    text-align: right;
+    float: right;
+    font-size: 13px;
+    color: #bdbdbd;
+    font-weight: 500;
+}
+
+
+span.timeslot-date, label.timeslot-day {
+    color: #fff !important;
+    text-decoration: none !important;
+}
+@media only screen and (max-width:1000px){
 
 	 .payment-details .tab, .payment-details .tabcontent {height:auto;}
 

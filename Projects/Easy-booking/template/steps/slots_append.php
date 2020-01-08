@@ -2,7 +2,12 @@
 session_start();
 require dirname(__FILE__, 6).'/wp-load.php';
 
-$_SESSION['formdata']['date'] = $_GET['date'];
+if (isset($_GET['date'])){
+    $_SESSION['formdata']['date'] = $_GET['date'];
+}else{
+    $_SESSION['formdata']['date'] = date("Y-m-d");
+}
+
 global $bokingobj;
 // pr($slots->slots->time);
 // availabilityofslots($resource,$slot,$date,$subserviceslots)
@@ -27,7 +32,7 @@ global $bokingobj;
 							<div>
 								<div class="timeslot_bottom <?php echo ($key->status != 'available')? 'booked':''; ?>">
 									<label for="timeslot-radio<?php echo $i; ?>">
-										<span class="timeslot-time"><?php echo $key->starttime; ?></span>
+										<span class="timeslot-time"><?php echo timeto12($key->starttime); ?></span>
 										<span class="timeslot-status"><?php echo $key->status; ?></span>
 									</label>
 									<?php if ($key->status == 'available'): ?>
@@ -73,7 +78,7 @@ global $bokingobj;
 									<div>
 										<div class="timeslot_bottom <?php echo ($key->status != 'available')? 'booked':''; ?>">
 											<label for="timeslot-radio<?php echo $i; ?>">
-												<span class="timeslot-time"><?php echo $key->starttime; ?></span>
+												<span class="timeslot-time"><?php echo timeto12($key->starttime); ?></span>
 												<span class="timeslot-status"><?php echo $key->status; ?></span>
 											</label>
 											<?php if ($key->status == 'available'): ?>

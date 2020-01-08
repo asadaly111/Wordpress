@@ -118,7 +118,7 @@ $_SESSION['formdata']['timeslot'] = $_GET['timeslot'];
 										<p><?php echo $_SESSION['formdata']['date']; ?></p>
 									</div>
 									<div class="time-meta">
-										<p><?php echo $_SESSION['formdata']['timeslot']; ?></p>
+										<p><?php echo timeto12($_SESSION['formdata']['timeslot']); ?></p>
 									</div>
 								</div>
 							</div>
