@@ -43,6 +43,10 @@ $data = json_decode($bokingobj->allreservations() );
               </td>
             </tr>
           <?php endforeach ?>
+          <?php else: ?>
+            <tr>
+              <td>No Record Found!</td>
+            </tr>
         <?php endif ?>
         
       </tbody>
