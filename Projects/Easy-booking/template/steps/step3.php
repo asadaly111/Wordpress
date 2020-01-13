@@ -58,7 +58,7 @@ input.error+ruby {display: block !important;}
 											<li>
 												<label for="<?php echo $key->id; ?>"><h6><?php echo $key->slot; ?> Minutes </h6></label>
 												<div><input id="<?php echo $key->id; ?>" type="radio" name="duration" value="<?php echo $key->id; ?>" required data-duration="<?php echo $key->slot; ?>" data-price="<?php echo $key->price; ?>">
-													<span>$<?php echo $key->price; ?></span></div>
+													<span>£<?php echo $key->price; ?></span></div>
 												</li>
 											<?php endforeach; ?>
 										<?php endif; ?>

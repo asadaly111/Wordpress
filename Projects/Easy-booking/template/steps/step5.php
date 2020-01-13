@@ -209,7 +209,7 @@ $_SESSION['formdata']['timeslot'] = $_GET['timeslot'];
 							<input type="text" name="discount" id="discount" class="discount" placeholder="Enter New Discount Code">
 						</div>
 						<div class="total">
-							<p>Total To pay <span class="total-meta">$<?php echo $_SESSION['formdata']['price']; ?></span> </p>
+							<p>Total To pay <span class="total-meta">£<?php echo $_SESSION['formdata']['price']; ?></span> </p>
 						</div>
 						<div class="pay-now">
 							<input type="hidden" name="amounttotal" value="<?php echo $_SESSION['formdata']['price']; ?>">

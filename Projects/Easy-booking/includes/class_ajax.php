@@ -40,7 +40,7 @@ class cs_ajax{
 			'LASTNAME'      => $lname,
 			'COUNTRYCODE'   => 'US',
 			'AMT'           => $amount,
-			'CURRENCYCODE'  => 'USD',
+			'CURRENCYCODE'  => 'EUR',
 			'DESC'          => 'Booking',
 		);
 
