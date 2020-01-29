@@ -93,8 +93,7 @@ $_SESSION['step2_url'] = $_SERVER['REQUEST_URI'];
 <script>
 	function fillIn() {
 
-	// console.log(this);
-	jQuery('#address').closest('form').find('input[type="submit"]').removeAttr('disabled');
+	
 	
 	console.log(this.inputId);
 	var idd = this.inputId;
@@ -109,6 +108,10 @@ $_SESSION['step2_url'] = $_SERVER['REQUEST_URI'];
 
     	if (status == google.maps.GeocoderStatus.OK) {
     		if (results[1]) {
+
+				// console.log(this);
+				jQuery('#address').closest('form').find('input[type="submit"]').removeAttr('disabled');
+
     			for (var i = 0; i < results.length; i++) {
                             // console.log(results[i].types);
                             if (results[i].types[0] === "locality") {

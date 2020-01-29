@@ -45,6 +45,18 @@ get_header();
 <script>
     jQuery(document).ready(function() {
 
+
+        //Prevent Enter key Submit
+        jQuery(document).ready(function() {
+          jQuery(window).keydown(function(event){
+            if(event.keyCode == 13) {
+              event.preventDefault();
+              jQuery('#address').closest('form').find('input[type="submit"]').attr('disabled');
+              return false;
+          }
+      });
+      });
+
         jQuery.LoadingOverlaySetup({
             imageColor      : "#b91120"
         });
@@ -120,7 +132,8 @@ get_header();
 
             if (jQuery(this).find('input[name="durationsub"]:checked').length > 0) {
                 var subprice = jQuery(this).find('input[name="durationsub"]:checked').data('price');
-                price = price+subprice;
+                var subtime = jQuery(this).find('input[name="durationsub"]:checked').data('subtime');
+                price = price+subprice+'&subtime='+subtime;
                 console.log(price);
             }else{
                 console.log('else');

@@ -148,7 +148,7 @@ $_SESSION['formdata']['timeslot'] = $_GET['timeslot'];
 										<p><?php echo $_SESSION['formdata']['serviceName']; ?></p>
 									</div>
 									<div class="slot-meta">
-										<p><?php echo $_SESSION['formdata']['durationTime'] ?> Minitues</p>
+										<p><?php echo $_SESSION['formdata']['durationTime']+@$_SESSION['formdata']['subtime'] ?> Minitues</p>
 									</div>
 								</div>
 							</div>

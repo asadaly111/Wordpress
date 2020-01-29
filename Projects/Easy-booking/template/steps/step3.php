@@ -100,7 +100,7 @@ input.error+ruby {display: block !important;}
 													<?php foreach ($keykey->sub as $keykeykey): ?>
 														<li class="undrli">
 															<label for="radio-1"><h6>+<?php echo $keykeykey->slot; ?> Minutes<br></h6> <p> £<?php echo $keykeykey->price; ?> (<?php echo $keykeykey->name; ?>) = £<?php echo $keykey->price+$keykeykey->price; ?></p></label>
-															<input type="radio" name="durationsub" value="<?php echo $keykeykey->timeslot_id; ?>" required data-price="<?php echo $keykeykey->price; ?>">
+															<input type="radio" name="durationsub" value="<?php echo $keykeykey->timeslot_id; ?>" required data-price="<?php echo $keykeykey->price; ?>" data-subtime="<?php echo $keykeykey->slot; ?>">
 															<ruby style="display: none;">Please select one Addon</ruby>
 														</li>
 													<?php endforeach; ?>

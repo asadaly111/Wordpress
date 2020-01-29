@@ -17,7 +17,7 @@ $resources = json_decode($bokingobj->allservices(1));
 							<h1><?php echo $key->name; ?></h1>
 						</div>
 						<div class="pkgg-btn">
-							<a href="inde.html" class="packg-btn viewpkg" data-id="<?php echo $key->id; ?>" data-serviceName="<?php echo $key->name; ?>">View packages</a>
+							<a href="#" class="packg-btn viewpkg" data-id="<?php echo $key->id; ?>" data-serviceName="<?php echo $key->name; ?>">View packages</a>
 						</div>
 					</div>
 				<?php endforeach; ?>
