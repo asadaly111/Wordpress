@@ -28,7 +28,6 @@ $user_id  = get_current_user_id();
 <?php get_footer(); ?>
 
 <script>var $ = jQuery.noConflict(); </script>
-
 <script uid="12" src="https://dev28.onlinetestingserver.com/soachatcentralizedWeb/js/ocs.js"></script>
 <script type="text/javascript">
         ocs.init({
@@ -44,4 +43,4 @@ $user_id  = get_current_user_id();
             senderBubble: '#123456',
             recieverBubble: '#123456',
         });
-    </script>
+ </script>

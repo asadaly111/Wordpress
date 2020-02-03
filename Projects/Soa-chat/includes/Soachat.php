@@ -38,6 +38,7 @@ class Soachat
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
                          'Content-Type: application/json',
+                         'Accept: application/json',
                          'Content-Length: ' . strlen($data_string))
         );
         $response = curl_exec ( $ch );
@@ -147,7 +148,6 @@ class Soachat
     
     /*  Endpoint to remove User friends from Soachat system database POST - /api/user/remove-friends */
     public static function removeFriends($fromid,$toid){
-
         $data = array(
             'appid' =>  self::$app_id,
             'secret_key' =>  self::$secret_key,
