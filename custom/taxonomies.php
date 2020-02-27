@@ -27,3 +27,6 @@ endif;
 
 // Get term meta
 $developer_phone = get_term_meta( $developer[0]->term_id, 'developer_phone', true );
+
+// Curent taxnomy OBJECT
+$tax = $wp_query->get_queried_object();

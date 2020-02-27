@@ -37,3 +37,39 @@ frame.open();
 
 //refrence link
 //https://codex.wordpress.org/Javascript_Reference/wp.media
+
+
+
+// example 2
+
+
+        // ADD IMAGE LINK
+        jQuery(document).on('click', '.customupload', function( event ){
+            event.preventDefault();
+            // Create a new media frame
+            frame = wp.media({
+                title: 'Select or Upload Media',
+                button: {
+                    text: 'Use this media'
+                },
+                multiple: true  // Set to true to allow multiple files to be selected
+            });
+            // When an image is selected in the media frame...
+            frame.on( 'select', function() {
+                // Get media attachment details from the frame state
+                var attachment = frame.state().get('selection').toJSON();
+                jQuery.each(attachment, function(index, val) {
+                    console.log(val);
+                    jQuery('.apprendhere').append('<div class="col-md-4"><img src="'+val.url+'" style="width: 100%"><p></p><input type="hidden" name="uploads[]" value="'+val.id+'"></div>');
+                });
+                // attachment.id; //89
+                // attachment.title; //osts57yu7em91yaeazvq
+                // attachment.filename; //osts57yu7em91yaeazvq.jpg
+                // attachment.url; //http://localhost/testwp/wp-content/uploads/2017/09/osts57yu7em91yaeazvq.jpg
+                // attachment.link; //http://localhost/testwp/obituary/obituary-for-dorothy-ann-leslie/osts57yu7em91yaeazvq/
+                // inputField.val(attachment.url);
+
+            });
+            // Finally, open the modal on click
+            frame.open();
+        });
