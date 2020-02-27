@@ -15,3 +15,10 @@ Push
 	git commit -m "commit"
 	git push origin Development
 
+
+
+
+Change account:
+$ git config user.name "Mister Manager"
+$ git config user.email "someuser@some.org"
+git clone github.com-otheruser:someorg/somerepo.git
