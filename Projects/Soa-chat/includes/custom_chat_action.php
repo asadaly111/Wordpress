@@ -5,7 +5,14 @@ function chat_user_create($userid){
     $user = get_userdata($userid);
     if (in_array('subscriber', $user->roles)){
         $soachat = new Soachat();
-        $soachat::addUser($userid, $user->data->display_name);
+
+        if (get_option('chat_type') == 1){
+            $video = 0;
+        }else{
+            $video = 1;
+        }
+
+        $soachat::addUser($userid, $user->data->display_name, null, $video);
         add_user_meta($userid, 'is_soa_chat', 1);
     }
 }
@@ -17,8 +24,15 @@ function my_profile_update( $user_id, $old_user_data ) {
     if (!empty($check)){
         $fname = get_user_meta( $user_id, 'first_name', true );
         $lname = get_user_meta( $user_id, 'last_name', true );
+
+        if (get_option('chat_type') == 1){
+            $video = 0;
+        }else{
+            $video = 1;
+        }
+
         $soachat = new Soachat();
-        $soachat::updateUser($user_id, $fname.' '.$lname);
+        $soachat::updateUser($user_id, $fname.' '.$lname, null, $video);
     }
 }
 //Delete User
@@ -57,12 +71,13 @@ function my_non_logged_redirect(){
 function cs_global_chat_shortcode($atts = array(), $content = '')
 {
     $atts = shortcode_atts(array(
-        'global' => '0',
+        'global' => 0,
         'leftPanelBgColor' => '#fff',
         'leftPanelUsersColor' => '#fff',
         'chatWindowBgColor' => '#fff',
         'senderBubble' => '#fff',
         'recieverBubble' => '#fff',
+        'isaudio' => 0,
     ), $atts, 'shortcode1');
     if (is_user_logged_in()) {
         wp_enqueue_script('soachatscript', 'https://dev28.onlinetestingserver.com/soachatcentralizedWeb/js/ocs.js', array('jquery'), 1.1, true);
@@ -80,6 +95,7 @@ function cs_global_chat_shortcode($atts = array(), $content = '')
                 'senderBubble' => $atts['senderBubble'],
                 'recieverBubble' => $atts['recieverBubble'],
                 'global' => $atts['global'],
+                'onlyAudio' => $atts['isaudio'],
             )
         );
         $content = '<div id="mychatwindow"></div>';

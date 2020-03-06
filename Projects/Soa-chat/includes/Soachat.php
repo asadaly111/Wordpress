@@ -62,6 +62,17 @@ class Soachat
         return $response;
     }
 
+    /*  Endpoint to add User to Soachat system database POST - /api/user/add */
+    public static function get_all_user(){
+        $data = array(
+            'appid' =>  self::$app_id,
+            'secret_key' =>  self::$secret_key,
+        );
+        $url = self::$endpoint . '/api/user/all';
+        $response = self::request($data, $url );
+        return $response;
+    }
+
     /*  Endpoint to add User in bulk to Soachat system database POST - /api/user/add */
     public function addUsersBulk($users=[]){
         $data = array(

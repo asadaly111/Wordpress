@@ -10,21 +10,21 @@ jQuery('.add-friend').on('click', function () {
         confirmButtonText: 'Confirm'
     }).then((result) => {
         if (result.value) {
-            jQuery.post(soa_chat_object.ajaxurl+'?action=add_friend', {id: id}, function(data, textStatus, xhr) {
+            jQuery.post(soa_chat_object.ajaxurl + '?action=add_friend', {id: id}, function (data, textStatus, xhr) {
                 console.log(data);
-                if(data.status){
+                if (data.status) {
                     Swal.fire(
                         'Confirmation Message',
                         data.message,
                         'success'
                     )
-                }else{
+                } else {
                     Swal.fire({
                         icon: 'error',
                         text: data.message,
                     })
                 }
-            },'json');
+            }, 'json');
         }
     })
 });
@@ -42,21 +42,21 @@ jQuery('.remove-friend').on('click', function () {
         confirmButtonText: 'Confirm'
     }).then((result) => {
         if (result.value) {
-            jQuery.post(soa_chat_object.ajaxurl+'?action=remove_friend', {id: id}, function(data, textStatus, xhr) {
+            jQuery.post(soa_chat_object.ajaxurl + '?action=remove_friend', {id: id}, function (data, textStatus, xhr) {
                 console.log(data);
-                if(data.status){
+                if (data.status) {
                     Swal.fire(
                         'Confirmation Message',
                         data.message,
                         'success'
                     )
-                }else{
+                } else {
                     Swal.fire({
                         icon: 'error',
                         text: data.message,
                     })
                 }
-            },'json');
+            }, 'json');
         }
     })
 });
