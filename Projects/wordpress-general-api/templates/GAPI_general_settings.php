@@ -5,27 +5,29 @@ $taxonomyName = "product_cat";
 $parent_terms = get_terms($taxonomyName, array('orderby' => 'slug', 'hide_empty' => false) );
 
 if (!empty($_POST)) {
+    die();
   $data = [];
   if (!empty($_POST['appdata']['homebanner']['image'])) {
     $i = 0;
     foreach ($_POST['appdata']['homebanner']['image'] as $key => $value) {
-      $data['banners'][$i]['image'] = $_POST['appdata']['homebanner']['image'][$key];
-      $data['banners'][$i]['category'] = $_POST['appdata']['homebanner']['category'][$key];
-      $data['banners'][$i]['button'] = $_POST['appdata']['homebanner']['button'][$key];
+      $data['banners'][$i]['image'] = sanitize_text_field($_POST['appdata']['homebanner']['image'][$key]);
+      $data['banners'][$i]['category'] = sanitize_text_field($_POST['appdata']['homebanner']['category'][$key]);
+      $data['banners'][$i]['button'] = sanitize_text_field($_POST['appdata']['homebanner']['button'][$key]);
       $i++;
     }
   }
   if (!empty($_POST['appdata']['pages']['page_name'])) {
     $i = 0;
     foreach ($_POST['appdata']['pages']['page_name'] as $key1 => $value1) {
-      $data['pages'][$value1]['image'] = $_POST['appdata']['pages']['image'][$key1];
-      $data['pages'][$value1]['title'] = $_POST['appdata']['pages']['title'][$key1];
-      $data['pages'][$value1]['content'] = $_POST['appdata']['pages']['content'][$key1];
+      $data['pages'][$value1]['image'] = sanitize_text_field($_POST['appdata']['pages']['image'][$key1]);
+      $data['pages'][$value1]['title'] = sanitize_text_field($_POST['appdata']['pages']['title'][$key1]);
+      $data['pages'][$value1]['content'] = sanitize_text_field($_POST['appdata']['pages']['content'][$key1]);
       $i++;
     }
   }
   $data = json_encode($data);
-	update_option('GAPI_app_data', $data);
+  update_option('GAPI_app_data', $data);
+    echo '<div class="notice notice-success is-dismissible"><p>Record Updated!</p></div>';
 }
 
 $getdata = get_option('GAPI_app_data');
@@ -104,7 +106,7 @@ $getdata = json_decode($getdata , true);
   <h3 class="card-header">Generate Data</h3>
   <div class="card-body">
     <br>
-    <form accept="" method="POST">
+    <form accept="" method="POST" id="pagesdata">
 
       <div class="dataapend">
         
@@ -253,4 +255,87 @@ $getdata = json_decode($getdata , true);
     event.preventDefault();
     jQuery(this).closest('.row').remove();
   });
+
+
+/*************** Form submit *********/
+
+
+
+const uploadData = async(length) => {
+
+    for(i=0; i<length; i++){
+
+        if(i == length){
+            saveData(chunks[i], i, 1);
+
+        }else{
+
+
+            saveData(chunks[i], i, 0);
+        }
+    }
+}
+
+  uploadData
+
+jQuery(document).ready(function() {
+    jQuery(document).on('submit', '#pagesdata', async function(event) {
+        event.preventDefault();
+
+        let form = jQuery(this).serializeArray();
+        let chunks = form.chunk_inefficient(100);
+        let length = chunks.length;
+
+        for(i=0; i<length; i++){
+            let result;
+            if(i == length-1)
+                result = await saveData(chunks[i], i, 1);			//100, 0, 0
+            else
+                result = await saveData(chunks[i], i, 0);
+
+            console.log(result);
+        }
+
+    });
+});
+
+
+  function  saveData(data, offset, last){
+      return;
+      jQuery.ajax({
+          url: 'https://dev62.onlinetestingserver.com/testingserver/wp-admin/admin.php?page=GAPI_main_menu',
+          data: { data: data, offset: offset, last: last },
+          method: 'post',
+          success: function();
+      });
+  }
+
+
+
+
+
+
+
+
+
+Object.defineProperty(Array.prototype, 'chunk_inefficient', {
+    value: function(chunkSize) {
+        var array = this;
+        return [].concat.apply([],
+            array.map(function(elem, i) {
+                return i % chunkSize ? [] : [array.slice(i, i + chunkSize)];
+            })
+        );
+    }
+});
+
+
+
+
+
+
+
+
+
+
 </script>
