@@ -5,7 +5,6 @@ $taxonomyName = "product_cat";
 $parent_terms = get_terms($taxonomyName, array('orderby' => 'slug', 'hide_empty' => false) );
 
 if (!empty($_POST)) {
-    die();
   $data = [];
   if (!empty($_POST['appdata']['homebanner']['image'])) {
     $i = 0;
@@ -21,7 +20,7 @@ if (!empty($_POST)) {
     foreach ($_POST['appdata']['pages']['page_name'] as $key1 => $value1) {
       $data['pages'][$value1]['image'] = sanitize_text_field($_POST['appdata']['pages']['image'][$key1]);
       $data['pages'][$value1]['title'] = sanitize_text_field($_POST['appdata']['pages']['title'][$key1]);
-      $data['pages'][$value1]['content'] = sanitize_text_field($_POST['appdata']['pages']['content'][$key1]);
+      $data['pages'][$value1]['content'] = $_POST['appdata']['pages']['content'][$key1];
       $i++;
     }
   }

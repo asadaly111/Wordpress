@@ -19,6 +19,6 @@ Push
 
 
 Change account:
-$ git config user.name "Mister Manager"
-$ git config user.email "someuser@some.org"
+git config user.name "asadaly111"
+git config user.email "asadaly111@gmail.com"
 git clone github.com-otheruser:someorg/somerepo.git
