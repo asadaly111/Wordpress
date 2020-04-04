@@ -1,1 +1,1 @@
-### Wordpress Code backup ###
+### Wordpress Snippets ###
